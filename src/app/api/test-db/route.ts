@@ -1,33 +1,31 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
+import { getNeonClient } from '@/lib/db/neon-client';
 
 export async function GET() {
   try {
+    console.log('Testing database connection...');
+    console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+    
+    // Use Neon client directly as a workaround for Prisma client issues in WSL
+    const sql = getNeonClient();
+    
     // Test database connection
-    const result = await prisma.$queryRaw`SELECT NOW() as current_time`;
+    const result = await sql`SELECT NOW() as current_time`;
     
     // Count tables
-    const tableCount = await prisma.$queryRaw`
+    const tableCount = await sql`
       SELECT COUNT(*) as count 
       FROM information_schema.tables 
       WHERE table_schema = 'public'
     `;
     
-    // Convert BigInt to string for JSON serialization
-    const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
-      typeof value === 'bigint' ? value.toString() : value
-    ));
-    
-    const serializedTableCount = JSON.parse(JSON.stringify(tableCount, (key, value) =>
-      typeof value === 'bigint' ? value.toString() : value
-    ));
-    
     return NextResponse.json({
       success: true,
       message: 'Database connection successful',
       data: {
-        currentTime: serializedResult,
-        tableCount: serializedTableCount
+        currentTime: result[0].current_time,
+        tableCount: tableCount[0].count,
+        connectionType: 'neon-direct'
       }
     });
   } catch (error) {
@@ -36,7 +34,11 @@ export async function GET() {
       { 
         success: false, 
         error: 'Database connection failed',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
+        env: {
+          hasDatabaseUrl: !!process.env.DATABASE_URL,
+          nodeEnv: process.env.NODE_ENV
+        }
       },
       { status: 500 }
     );

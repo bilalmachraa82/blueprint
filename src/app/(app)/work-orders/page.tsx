@@ -67,7 +67,9 @@ export default function WorkOrdersPage() {
 
   const fetchWorkOrders = async () => {
     try {
-      const response = await fetch('/api/work-orders');
+      const response = await fetch('/api/work-orders', {
+        credentials: 'include'
+      });
       if (response.ok) {
         const data = await response.json();
         setWorkOrders(data);
@@ -81,7 +83,9 @@ export default function WorkOrdersPage() {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('/api/projects');
+      const response = await fetch('/api/projects', {
+        credentials: 'include'
+      });
       if (response.ok) {
         setProjects(await response.json());
       } else {

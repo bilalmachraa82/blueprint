@@ -1,7 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stackServerApp } from '@/lib/auth/stack-server';
-import { prisma } from '@/lib/db/prisma';
-import { ensureUserOrganization } from '@/lib/auth/organization';
+import { getNeonClient } from '@/lib/db/neon-client';
+
+async function ensureUserOrganization(userId: string) {
+  const sql = getNeonClient();
+  
+  const userOrgs = await sql`
+    SELECT "organizationId" FROM "UserOrganization" 
+    WHERE "userId" = ${userId}
+    LIMIT 1
+  `;
+  
+  if (userOrgs.length > 0) {
+    return userOrgs[0].organizationId;
+  }
+  
+  const orgName = `User ${userId.substring(0, 8)}`;
+  const orgSlug = `user-${userId.substring(0, 8)}-org`;
+  const newOrg = await sql`
+    INSERT INTO "Organization" (id, name, slug, "createdAt", "updatedAt")
+    VALUES (gen_random_uuid(), ${orgName}, ${orgSlug}, NOW(), NOW())
+    RETURNING id
+  `;
+  
+  await sql`
+    INSERT INTO "UserOrganization" ("userId", "organizationId", role, "joinedAt")
+    VALUES (${userId}, ${newOrg[0].id}, 'admin', NOW())
+  `;
+  
+  return newOrg[0].id;
+}
 
 // GET - List tasks
 export async function GET(request: NextRequest) {
@@ -11,25 +39,37 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const organizationId = await ensureUserOrganization(user.id);
+    const sql = getNeonClient();
+    const { searchParams } = new URL(request.url);
+    const projectId = searchParams.get('projectId');
+    const workOrderId = searchParams.get('workOrderId');
 
-    // This will fetch all tasks for the organization.
-    // We can add filters (e.g., by projectId) from the request query if needed.
-    const tasks = await prisma.task.findMany({
-      where: {
-        project: {
-          organizationId: organizationId,
-        },
-      },
-      include: {
-        project: true,
-        workOrder: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    let query = `
+      SELECT t.*, p.name as "projectName", wo.code as "workOrderCode"
+      FROM "Task" t
+      LEFT JOIN "Project" p ON t."projectId" = p.id
+      LEFT JOIN "WorkOrder" wo ON t."workOrderId" = wo.id
+      WHERE 1=1
+    `;
+    
+    const params: any[] = [];
+    
+    if (projectId) {
+      params.push(projectId);
+      query += ` AND t."projectId" = $${params.length}`;
+    }
+    
+    if (workOrderId) {
+      params.push(workOrderId);
+      query += ` AND t."workOrderId" = $${params.length}`;
+    }
+    
+    query += ` ORDER BY t."createdAt" DESC`;
 
+    const tasks = params.length > 0 
+      ? await sql(query, params)
+      : await sql(query);
+    
     return NextResponse.json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
@@ -48,47 +88,49 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const organizationId = await ensureUserOrganization(user.id);
-
+    const sql = getNeonClient();
     const body = await request.json();
-    const { title, description, projectId, workOrderId, priority, dueDate } = body;
+    const { 
+      title, 
+      description, 
+      projectId, 
+      workOrderId, 
+      priority = 'medium',
+      status = 'pending',
+      dueDate 
+    } = body;
 
     if (!title || !projectId) {
       return NextResponse.json(
-        { error: 'Title and Project ID are required' },
+        { error: 'Title and project ID are required' },
         { status: 400 }
       );
     }
 
-    // Verify the project belongs to the user's organization
-    const project = await prisma.project.findFirst({
-      where: { id: projectId, organizationId },
-    });
+    const newTask = await sql`
+      INSERT INTO "Task" (
+        id, title, description, "projectId", "workOrderId",
+        priority, status, "dueDate", "assignedTo", "createdBy", 
+        "createdAt", "updatedAt"
+      )
+      VALUES (
+        gen_random_uuid(),
+        ${title},
+        ${description || null},
+        ${projectId},
+        ${workOrderId || null},
+        ${priority},
+        ${status},
+        ${dueDate ? new Date(dueDate) : null},
+        ${user.id},
+        ${user.id},
+        NOW(),
+        NOW()
+      )
+      RETURNING *
+    `;
 
-    if (!project) {
-      return NextResponse.json(
-        { error: 'Project not found or access denied' },
-        { status: 404 }
-      );
-    }
-
-    const newTask = await prisma.task.create({
-      data: {
-        title,
-        description,
-        projectId,
-        workOrderId,
-        priority: priority || 'medium',
-        dueDate: dueDate ? new Date(dueDate) : null,
-        createdBy: user.id,
-      },
-      include: {
-        project: true,
-        workOrder: true,
-      },
-    });
-
-    return NextResponse.json(newTask, { status: 201 });
+    return NextResponse.json(newTask[0], { status: 201 });
   } catch (error) {
     console.error('Error creating task:', error);
     return NextResponse.json(

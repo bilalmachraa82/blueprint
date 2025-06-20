@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
+import { apiPost } from '@/lib/utils/fetch';
 
 interface NewProjectDialogProps {
   onProjectCreated: () => void;
@@ -28,14 +29,7 @@ export function NewProjectDialog({ onProjectCreated }: NewProjectDialogProps) {
     e.preventDefault();
     
     try {
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, description }),
-        credentials: 'include',
-      });
+      const response = await apiPost('/api/projects', { name, description });
 
       if (!response.ok) {
         const errorData = await response.json();

@@ -1,0 +1,30 @@
+
+> blueprint-pro@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 17.1s
+ ○ Compiling /api/test-neon ...
+ ✓ Compiled /api/test-neon in 4.2s (365 modules)
+ GET /api/test-neon 200 in 6245ms
+ ○ Compiling /api/test ...
+ ✓ Compiled /api/test in 37.7s (9725 modules)
+Creating Prisma client with Neon adapter...
+Test API called
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."Organization"."id" FROM "public"."Organization" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+ GET /api/test 200 in 41441ms
+Test API called
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."Organization"."id" FROM "public"."Organization" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+ GET /api/test 200 in 164ms
+Test API called
+prisma:query SELECT COUNT(*) AS "_count._all" FROM (SELECT "public"."Organization"."id" FROM "public"."Organization" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+ GET /api/test?t=1750429737 200 in 110ms
+[?25h

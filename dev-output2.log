@@ -1,0 +1,82 @@
+
+> blueprint-pro@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 20.2s
+ ○ Compiling /api/test ...
+ ✓ Compiled /api/test in 27.8s (9718 modules)
+Test API called
+Test API called
+ GET /api/test 200 in 16735ms
+ ○ Compiling /api/projects ...
+ ✓ Compiled /api/projects in 2.5s (9720 modules)
+ GET /api/projects 401 in 2720ms
+Test API called
+ GET /api/test 200 in 627ms
+ ○ Compiling /api/test-neon ...
+ ✓ Compiled /api/test-neon in 3.4s (9725 modules)
+ GET /api/test-neon 200 in 4298ms
+ ○ Compiling /api/test-db ...
+ ✓ Compiled /api/test-db in 2.1s (9727 modules)
+Testing database connection...
+DATABASE_URL exists: true
+ GET /api/test-db 200 in 2720ms
+ ○ Compiling /api/health ...
+ ✓ Compiled /api/health in 1476ms (9727 modules)
+ GET /api/health 200 in 1857ms
+ ○ Compiling /api/projects ...
+ ✓ Compiled /api/projects in 1064ms (5183 modules)
+ GET /api/projects 401 in 1349ms
+ ○ Compiling /api/work-orders ...
+ ✓ Compiled /api/work-orders in 2s (9731 modules)
+ GET /api/work-orders 401 in 2324ms
+ ○ Compiling /api/tasks ...
+ ✓ Compiled /api/tasks in 1765ms (9733 modules)
+ GET /api/tasks 401 in 2052ms
+ ○ Compiling /api/quality-control ...
+ ✓ Compiled /api/quality-control in 3.4s (9738 modules)
+Creating Prisma client with Neon adapter...
+prisma:query SELECT "public"."QualityCheck"."id", "public"."QualityCheck"."operationId", "public"."QualityCheck"."checkType", "public"."QualityCheck"."status", "public"."QualityCheck"."checkedBy", "public"."QualityCheck"."checkedAt", "public"."QualityCheck"."notes", "public"."QualityCheck"."measurements", "public"."QualityCheck"."qrCode", "public"."QualityCheck"."createdAt", "public"."QualityCheck"."updatedAt", COALESCE("aggr_selection_0_QualityImage"."_aggr_count_images", 0) AS "_aggr_count_images" FROM "public"."QualityCheck" LEFT JOIN (SELECT "public"."QualityImage"."qualityCheckId", COUNT(*) AS "_aggr_count_images" FROM "public"."QualityImage" WHERE 1=1 GROUP BY "public"."QualityImage"."qualityCheckId") AS "aggr_selection_0_QualityImage" ON ("public"."QualityCheck"."id" = "aggr_selection_0_QualityImage"."qualityCheckId") WHERE 1=1 ORDER BY "public"."QualityCheck"."createdAt" DESC OFFSET $1
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+file:///mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+Error fetching quality checks: [Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.] {
+  clientVersion: '6.10.1'
+}
+ GET /api/quality-control 500 in 4694ms
+ ○ Compiling /api/time-tracking ...
+ ✓ Compiled /api/time-tracking in 1370ms (9740 modules)
+prisma:query SELECT "public"."TimeLog"."id", "public"."TimeLog"."operationId", "public"."TimeLog"."userId", "public"."TimeLog"."startTime", "public"."TimeLog"."endTime", "public"."TimeLog"."duration", "public"."TimeLog"."notes", "public"."TimeLog"."createdAt" FROM "public"."TimeLog" WHERE 1=1 ORDER BY "public"."TimeLog"."startTime" DESC OFFSET $1
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+file:///mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+Error fetching time logs: [Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.] {
+  clientVersion: '6.10.1'
+}
+ GET /api/time-tracking 500 in 1665ms
+prisma:query SELECT "public"."QualityCheck"."id", "public"."QualityCheck"."operationId", "public"."QualityCheck"."checkType", "public"."QualityCheck"."status", "public"."QualityCheck"."checkedBy", "public"."QualityCheck"."checkedAt", "public"."QualityCheck"."notes", "public"."QualityCheck"."measurements", "public"."QualityCheck"."qrCode", "public"."QualityCheck"."createdAt", "public"."QualityCheck"."updatedAt", COALESCE("aggr_selection_0_QualityImage"."_aggr_count_images", 0) AS "_aggr_count_images" FROM "public"."QualityCheck" LEFT JOIN (SELECT "public"."QualityImage"."qualityCheckId", COUNT(*) AS "_aggr_count_images" FROM "public"."QualityImage" WHERE 1=1 GROUP BY "public"."QualityImage"."qualityCheckId") AS "aggr_selection_0_QualityImage" ON ("public"."QualityCheck"."id" = "aggr_selection_0_QualityImage"."qualityCheckId") WHERE 1=1 ORDER BY "public"."QualityCheck"."createdAt" DESC OFFSET $1
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+file:///mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+Error fetching quality checks: [Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.] {
+  clientVersion: '6.10.1'
+}
+ GET /api/quality-control 500 in 231ms
+prisma:query SELECT "public"."TimeLog"."id", "public"."TimeLog"."operationId", "public"."TimeLog"."userId", "public"."TimeLog"."startTime", "public"."TimeLog"."endTime", "public"."TimeLog"."duration", "public"."TimeLog"."notes", "public"."TimeLog"."createdAt" FROM "public"."TimeLog" WHERE 1=1 ORDER BY "public"."TimeLog"."startTime" DESC OFFSET $1
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+file:///mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+Error fetching time logs: [Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.] {
+  clientVersion: '6.10.1'
+}
+ GET /api/time-tracking 500 in 149ms
+prisma:query SELECT "public"."QualityCheck"."id", "public"."QualityCheck"."operationId", "public"."QualityCheck"."checkType", "public"."QualityCheck"."status", "public"."QualityCheck"."checkedBy", "public"."QualityCheck"."checkedAt", "public"."QualityCheck"."notes", "public"."QualityCheck"."measurements", "public"."QualityCheck"."qrCode", "public"."QualityCheck"."createdAt", "public"."QualityCheck"."updatedAt", COALESCE("aggr_selection_0_QualityImage"."_aggr_count_images", 0) AS "_aggr_count_images" FROM "public"."QualityCheck" LEFT JOIN (SELECT "public"."QualityImage"."qualityCheckId", COUNT(*) AS "_aggr_count_images" FROM "public"."QualityImage" WHERE 1=1 GROUP BY "public"."QualityImage"."qualityCheckId") AS "aggr_selection_0_QualityImage" ON ("public"."QualityCheck"."id" = "aggr_selection_0_QualityImage"."qualityCheckId") WHERE 1=1 ORDER BY "public"."QualityCheck"."createdAt" DESC OFFSET $1
+prisma:error No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+file:///mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+Error fetching quality checks: [Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: bilal, db: bilal, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.] {
+  clientVersion: '6.10.1'
+}
+ GET /api/quality-control?t=1750430217 500 in 152ms
+[?25h

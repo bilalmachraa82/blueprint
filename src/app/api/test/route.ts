@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stackServerApp } from '@/lib/auth/stack-server';
-import { prisma } from '@/lib/db/prisma';
+import { getNeonClient } from '@/lib/db/neon-client';
 
 export async function GET() {
   try {
@@ -16,10 +16,12 @@ export async function GET() {
       authTest = `Stack Auth error: ${e}`;
     }
     
-    // Test 3: Database connection
+    // Test 3: Database connection using Neon directly
     let dbTest = 'Database not tested';
     try {
-      const count = await prisma.organization.count();
+      const sql = getNeonClient();
+      const result = await sql`SELECT COUNT(*) as count FROM "Organization"`;
+      const count = result[0].count;
       dbTest = `Database connected. Organizations: ${count}`;
     } catch (e) {
       dbTest = `Database error: ${e}`;

@@ -1,7 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db/prisma";
+import { getNeonClient } from '@/lib/db/neon-client';
 import { stackServerApp } from "@/lib/auth/stack-server";
-import { ensureUserOrganization } from "@/lib/auth/organization";
+
+async function ensureUserOrganization(userId: string) {
+  const sql = getNeonClient();
+  
+  const userOrgs = await sql`
+    SELECT "organizationId" FROM "UserOrganization" 
+    WHERE "userId" = ${userId}
+    LIMIT 1
+  `;
+  
+  if (userOrgs.length > 0) {
+    return userOrgs[0].organizationId;
+  }
+  
+  const orgName = `User ${userId.substring(0, 8)}`;
+  const orgSlug = `user-${userId.substring(0, 8)}-org`;
+  const newOrg = await sql`
+    INSERT INTO "Organization" (id, name, slug, "createdAt", "updatedAt")
+    VALUES (gen_random_uuid(), ${orgName}, ${orgSlug}, NOW(), NOW())
+    RETURNING id
+  `;
+  
+  await sql`
+    INSERT INTO "UserOrganization" ("userId", "organizationId", role, "joinedAt")
+    VALUES (${userId}, ${newOrg[0].id}, 'admin', NOW())
+  `;
+  
+  return newOrg[0].id;
+}
 
 // GET - Listar work orders
 export async function GET(request: NextRequest) {
@@ -11,35 +39,38 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const sql = getNeonClient();
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get("status");
     const projectId = searchParams.get("projectId");
     
     const organizationId = await ensureUserOrganization(user.id);
 
-    const where = {
-      project: { organizationId }, // Ensure we only get work orders from the user's org
-      ...(status && { status }),
-      ...(projectId && { projectId }),
-    };
+    let query = `
+      SELECT wo.*, p.name as "projectName",
+        (SELECT COUNT(*) FROM "Task" t WHERE t."workOrderId" = wo.id)::int as "taskCount",
+        (SELECT COUNT(*) FROM "Operation" o WHERE o."workOrderId" = wo.id)::int as "operationCount"
+      FROM "WorkOrder" wo
+      LEFT JOIN "Project" p ON wo."projectId" = p.id
+      WHERE p."organizationId" = $1
+    `;
+    
+    const params: any[] = [organizationId];
+    
+    if (status) {
+      params.push(status);
+      query += ` AND wo.status = $${params.length}`;
+    }
+    
+    if (projectId) {
+      params.push(projectId);
+      query += ` AND wo."projectId" = $${params.length}`;
+    }
+    
+    query += ` ORDER BY wo."createdAt" DESC`;
 
-    const workOrders = await prisma.workOrder.findMany({
-      where,
-      include: {
-        project: true,
-        children: true,
-        _count: {
-          select: {
-            tasks: true,
-            operations: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
+    const workOrders = await sql(query, params);
+    
     return NextResponse.json(workOrders);
   } catch (error) {
     console.error("Error fetching work orders:", error);
@@ -58,6 +89,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const sql = getNeonClient();
     const body = await request.json();
     const {
       projectId,
@@ -69,44 +101,47 @@ export async function POST(request: NextRequest) {
       parentId,
     } = body;
 
-    // Gerar código único
-    const count = await prisma.workOrder.count();
-    const code = `WO-${new Date().getFullYear()}-${String(count + 1).padStart(3, "0")}`;
-
-    const organizationId = await ensureUserOrganization(user.id);
-
-    // Verify the project belongs to the user's organization
-    const project = await prisma.project.findFirst({
-      where: {
-        id: projectId,
-        organizationId: organizationId,
-      },
-    });
-
-    if (!project) {
-      return NextResponse.json({ error: "Project not found or access denied" }, { status: 404 });
+    if (!title || !projectId || !type) {
+      return NextResponse.json(
+        { error: "Title, project ID, and type are required" },
+        { status: 400 }
+      );
     }
 
-    const workOrder = await prisma.workOrder.create({
-      data: {
-        code,
-        title,
-        description,
-        type,
-        status: "pending",
-        priority: priority || "medium",
-        projectId,
-        parentId,
-        dueDate: dueDate ? new Date(dueDate) : null,
-        createdBy: user.id,
-      },
-      include: {
-        project: true,
-        children: true,
-      },
-    });
+    // Generate unique code
+    const year = new Date().getFullYear();
+    const countResult = await sql`
+      SELECT COUNT(*)::int as count FROM "WorkOrder"
+      WHERE EXTRACT(YEAR FROM "createdAt") = ${year}
+    `;
+    const count = countResult[0].count || 0;
+    const code = `WO-${year}-${String(count + 1).padStart(3, "0")}`;
 
-    return NextResponse.json(workOrder, { status: 201 });
+    const newWorkOrder = await sql`
+      INSERT INTO "WorkOrder" (
+        id, code, title, description, type,
+        status, priority, "projectId", "parentId",
+        "dueDate", "createdBy", "createdAt", "updatedAt"
+      )
+      VALUES (
+        gen_random_uuid(),
+        ${code},
+        ${title},
+        ${description || null},
+        ${type},
+        'pending',
+        ${priority || 'medium'},
+        ${projectId},
+        ${parentId || null},
+        ${dueDate ? new Date(dueDate) : null},
+        ${user.id},
+        NOW(),
+        NOW()
+      )
+      RETURNING *
+    `;
+
+    return NextResponse.json(newWorkOrder[0], { status: 201 });
   } catch (error) {
     console.error("Error creating work order:", error);
     return NextResponse.json(

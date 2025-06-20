@@ -1,0 +1,453 @@
+
+> blueprint-pro@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 12.2s
+ ○ Compiling /api/test ...
+ ✓ Compiled /api/quality-control in 47s (9720 modules)
+Test API called
+Error fetching quality checks: Error: This function can now be called only as a tagged-template function: sql`SELECT ${value}`, not sql("SELECT $1", [value], options). For a conventional function call with value placeholders ($1, $2, etc.), use sql.query("SELECT $1", [value], options).
+    at GET (src/app/api/quality-control/route.ts:58:74)
+  56 |     `;
+  57 |
+> 58 |     const qualityChecks = await (params.length > 0 ? sql(query, params) : sql(query));
+     |                                                                          ^
+  59 |
+  60 |     // Format the response
+  61 |     const formattedChecks = qualityChecks.map(check => ({
+ GET /api/quality-control 500 in 18458ms
+Error fetching quality checks: Error: This function can now be called only as a tagged-template function: sql`SELECT ${value}`, not sql("SELECT $1", [value], options). For a conventional function call with value placeholders ($1, $2, etc.), use sql.query("SELECT $1", [value], options).
+    at GET (src/app/api/quality-control/route.ts:58:74)
+  56 |     `;
+  57 |
+> 58 |     const qualityChecks = await (params.length > 0 ? sql(query, params) : sql(query));
+     |                                                                          ^
+  59 |
+  60 |     // Format the response
+  61 |     const formattedChecks = qualityChecks.map(check => ({
+ GET /api/quality-control 500 in 2310ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 897ms (5177 modules)
+ GET /favicon.ico 200 in 1150ms
+ GET /favicon.ico 200 in 111ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 13.8s (3301 modules)
+ ○ Compiling / ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (185kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (184kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (481kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+
+
+Retrying 1/3...
+
+
+Retrying 1/3...
+
+
+Retrying 1/3...
+
+
+Retrying 1/3...
+ ✓ Compiled / in 17.7s (9952 modules)
+Error fetching quality checks: Error: This function can now be called only as a tagged-template function: sql`SELECT ${value}`, not sql("SELECT $1", [value], options). For a conventional function call with value placeholders ($1, $2, etc.), use sql.query("SELECT $1", [value], options).
+    at GET (src/app/api/quality-control/route.ts:58:74)
+  56 |     `;
+  57 |
+> 58 |     const qualityChecks = await (params.length > 0 ? sql(query, params) : sql(query));
+     |                                                                          ^
+  59 |
+  60 |     // Format the response
+  61 |     const formattedChecks = qualityChecks.map(check => ({
+ GET /api/quality-control 500 in 642ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 646ms
+ GET / 200 in 20923ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 258ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 7.3s (9924 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 3569ms
+ GET /favicon.ico 500 in 3712ms
+ GET /_next/static/chunks/main-app.js?v=1750430563629 404 in 5054ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 138ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 122ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 8.4s (11026 modules)
+ GET /dashboard 200 in 9482ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 408ms
+ GET /_next/static/chunks/main-app.js?v=1750430580208 404 in 373ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 273ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 200ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 167ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 194ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 176ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 221ms
+Error fetching quality checks: Error: This function can now be called only as a tagged-template function: sql`SELECT ${value}`, not sql("SELECT $1", [value], options). For a conventional function call with value placeholders ($1, $2, etc.), use sql.query("SELECT $1", [value], options).
+    at GET (src/app/api/quality-control/route.ts:58:74)
+  56 |     `;
+  57 |
+> 58 |     const qualityChecks = await (params.length > 0 ? sql(query, params) : sql(query));
+     |                                                                          ^
+  59 |
+  60 |     // Format the response
+  61 |     const formattedChecks = qualityChecks.map(check => ({
+ GET /api/quality-control?t=1750430597 500 in 205ms
+Error fetching quality checks: Error: This function can now be called only as a tagged-template function: sql`SELECT ${value}`, not sql("SELECT $1", [value], options). For a conventional function call with value placeholders ($1, $2, etc.), use sql.query("SELECT $1", [value], options).
+    at GET (src/app/api/quality-control/route.ts:58:74)
+  56 |     `;
+  57 |
+> 58 |     const qualityChecks = await (params.length > 0 ? sql(query, params) : sql(query));
+     |                                                                          ^
+  59 |
+  60 |     // Format the response
+  61 |     const formattedChecks = qualityChecks.map(check => ({
+ GET /api/quality-control?t=$(date 500 in 1636ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 152ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 145ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 148ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 110ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 189ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 157ms
+ GET /dashboard 200 in 206ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 155ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 169ms
+ GET /_next/static/chunks/main-app.js?v=1750430612088 404 in 243ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 249ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 161ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 209ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 263ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 137ms
+ ○ Compiling /api/test-neon ...
+ ✓ Compiled /api/test-neon in 2.1s (11018 modules)
+ GET /api/test-neon 200 in 3797ms
+ GET /api/test-neon 200 in 971ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 4.1s (10778 modules)
+ GET /api/test-projects 404 in 4941ms
+ GET /api/test-projects 404 in 305ms
+ ○ Compiling /api/projects ...
+ ✓ Compiled /api/projects in 1726ms (10782 modules)
+ GET /api/projects 401 in 2807ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1490ms (5962 modules)
+ GET /dashboard 200 in 2835ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 2.8s (11350 modules)
+ GET /_next/static/css/app/layout.css?v=1750430767680 404 in 3153ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 2690ms
+ GET /_next/static/chunks/main-app.js?v=1750430767680 404 in 2717ms
+ GET /favicon.ico 200 in 3353ms
+ GET /_next/static/chunks/app/page.js 404 in 223ms
+ GET /_next/static/chunks/app/layout.js 404 in 219ms
+ GET /favicon.ico 200 in 358ms
+ GET /_next/static/chunks/app/(app)/dashboard/page.js 404 in 194ms
+ GET /_next/static/chunks/app/(app)/layout.js 404 in 362ms
+ GET /favicon.ico 200 in 407ms
+ GET /favicon.ico 200 in 232ms
+ GET /favicon.ico 200 in 229ms
+ GET /favicon.ico 200 in 184ms
+ GET /favicon.ico 200 in 164ms
+ GET /favicon.ico 200 in 163ms
+ GET /favicon.ico 404 in 276ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1879ms (5380 modules)
+ ✓ Compiled (5923 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 2890ms
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'clientModules')] {
+  page: '/'
+}
+ ⨯ [TypeError: Cannot read properties of undefined (reading 'clientModules')] {
+  page: '/dashboard'
+}
+ ○ Compiling /_error ...
+ GET /dashboard 500 in 6914ms
+ ✓ Compiled /_error in 2.3s (11351 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/pages/_document.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/pages/_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/pages/_document.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/pages/_document.js'
+}
+ GET / 500 in 26393ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 226ms
+ GET /dashboard 200 in 1127ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 453ms
+ GET / 200 in 1286ms
+ GET /_next/static/chunks/webpack.js?v=1750431118194 404 in 414ms
+ GET /_next/static/css/app/layout.css?v=1750431118194 404 in 372ms
+ GET /_next/static/css/app/layout.css?v=1750431118391 404 in 315ms
+ GET /_next/static/chunks/webpack.js?v=1750431118391 404 in 96ms
+ GET /_next/static/chunks/main-app.js?v=1750431118194 404 in 160ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 164ms
+ GET /_next/static/chunks/app/layout.js 404 in 309ms
+ GET /_next/static/chunks/app/page.js 404 in 370ms
+ GET /_next/static/chunks/main-app.js?v=1750431118391 404 in 378ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 407ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 589ms
+ GET /_next/static/chunks/app/layout.js 404 in 597ms
+ GET /_next/static/chunks/app/(app)/layout.js 404 in 249ms
+ GET /_next/static/chunks/app/page.js 404 in 266ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 470ms
+ GET /_next/static/chunks/app/(app)/dashboard/page.js 404 in 307ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 201ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 200ms
+ GET /dashboard 200 in 270ms
+ GET /_next/static/chunks/webpack.js?v=1750431121306 404 in 222ms
+ GET /_next/static/css/app/layout.css?v=1750431121306 404 in 180ms
+ GET /_next/static/chunks/main-app.js?v=1750431121306 404 in 272ms
+ GET /_next/static/chunks/app/layout.js 404 in 229ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 255ms
+ GET /_next/static/chunks/app/page.js 404 in 229ms
+ GET /_next/static/chunks/app/(app)/layout.js 404 in 178ms
+ GET /_next/static/chunks/app/(app)/dashboard/page.js 404 in 116ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 184ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/.next/cache/webpack/client-development-fallback/0.pack.gz'
+[?25h
