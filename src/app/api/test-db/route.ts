@@ -13,12 +13,21 @@ export async function GET() {
       WHERE table_schema = 'public'
     `;
     
+    // Convert BigInt to string for JSON serialization
+    const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    ));
+    
+    const serializedTableCount = JSON.parse(JSON.stringify(tableCount, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    ));
+    
     return NextResponse.json({
       success: true,
       message: 'Database connection successful',
       data: {
-        currentTime: result,
-        tableCount: tableCount
+        currentTime: serializedResult,
+        tableCount: serializedTableCount
       }
     });
   } catch (error) {

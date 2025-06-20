@@ -5,12 +5,12 @@ import { ensureUserOrganization } from '@/lib/auth/organization';
 
 // GET - List tasks
 export async function GET(request: NextRequest) {
-  const user = await stackServerApp.getUser({ tokenStore: request });
-  if (!user) {
-    return new NextResponse('Unauthorized', { status: 401 });
-  }
-
   try {
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const organizationId = await ensureUserOrganization(user.id);
 
     // This will fetch all tasks for the organization.
@@ -33,25 +33,31 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch tasks' },
+      { status: 500 }
+    );
   }
 }
 
 // POST - Create a new task
 export async function POST(request: NextRequest) {
-  const user = await stackServerApp.getUser({ tokenStore: request });
-  if (!user) {
-    return new NextResponse('Unauthorized', { status: 401 });
-  }
-
   try {
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const organizationId = await ensureUserOrganization(user.id);
 
     const body = await request.json();
     const { title, description, projectId, workOrderId, priority, dueDate } = body;
 
     if (!title || !projectId) {
-      return new NextResponse('Title and Project ID are required', { status: 400 });
+      return NextResponse.json(
+        { error: 'Title and Project ID are required' },
+        { status: 400 }
+      );
     }
 
     // Verify the project belongs to the user's organization
@@ -60,7 +66,10 @@ export async function POST(request: NextRequest) {
     });
 
     if (!project) {
-      return new NextResponse('Project not found or access denied', { status: 404 });
+      return NextResponse.json(
+        { error: 'Project not found or access denied' },
+        { status: 404 }
+      );
     }
 
     const newTask = await prisma.task.create({
@@ -73,11 +82,18 @@ export async function POST(request: NextRequest) {
         dueDate: dueDate ? new Date(dueDate) : null,
         createdBy: user.id,
       },
+      include: {
+        project: true,
+        workOrder: true,
+      },
     });
 
     return NextResponse.json(newTask, { status: 201 });
   } catch (error) {
     console.error('Error creating task:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to create task' },
+      { status: 500 }
+    );
   }
 }

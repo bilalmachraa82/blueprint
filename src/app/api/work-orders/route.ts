@@ -1,31 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db/prisma";
-import { stackServerApp } from "@/lib/auth/stack-server"; // Corrected import path
-
-// Helper to get organization ID from user session
-async function getOrganizationId(userId: string): Promise<string | null> {
-  const userOrganization = await prisma.userOrganization.findFirst({
-    where: { userId },
-  });
-  return userOrganization?.organizationId || null;
-}
+import { prisma } from "@/lib/db/prisma";
+import { stackServerApp } from "@/lib/auth/stack-server";
+import { ensureUserOrganization } from "@/lib/auth/organization";
 
 // GET - Listar work orders
 export async function GET(request: NextRequest) {
-  const user = await stackServerApp.getUser({ tokenStore: request });
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get("status");
     const projectId = searchParams.get("projectId");
     
-        const organizationId = await getOrganizationId(user.id);
-    if (!organizationId) {
-      return NextResponse.json({ error: "User not in an organization" }, { status: 403 });
-    }
+    const organizationId = await ensureUserOrganization(user.id);
 
     const where = {
       project: { organizationId }, // Ensure we only get work orders from the user's org
@@ -63,7 +53,7 @@ export async function GET(request: NextRequest) {
 // POST - Criar nova work order
 export async function POST(request: NextRequest) {
   try {
-    const user = await stackServerApp.getUser({ tokenStore: request });
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -83,10 +73,7 @@ export async function POST(request: NextRequest) {
     const count = await prisma.workOrder.count();
     const code = `WO-${new Date().getFullYear()}-${String(count + 1).padStart(3, "0")}`;
 
-        const organizationId = await getOrganizationId(user.id);
-    if (!organizationId) {
-      return NextResponse.json({ error: "User not in an organization" }, { status: 403 });
-    }
+    const organizationId = await ensureUserOrganization(user.id);
 
     // Verify the project belongs to the user's organization
     const project = await prisma.project.findFirst({

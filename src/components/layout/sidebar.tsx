@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUser } from "@stackframe/stack";
 import {
   LayoutDashboard,
   FolderOpen,
@@ -29,6 +30,7 @@ const navigation = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const user = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -89,15 +91,19 @@ export function Sidebar() {
           </nav>
 
           {/* User info */}
-          {!isCollapsed && (
+          {!isCollapsed && user && (
             <div className="border-t border-blue-800 p-4">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-blue-800 flex items-center justify-center">
                   <User className="h-5 w-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-white">User</p>
-                  <p className="text-xs text-blue-300">user@company.com</p>
+                  <p className="text-sm font-medium text-white">
+                    {user.displayName || "User"}
+                  </p>
+                  <p className="text-xs text-blue-300">
+                    {user.primaryEmail || "user@company.com"}
+                  </p>
                 </div>
               </div>
             </div>

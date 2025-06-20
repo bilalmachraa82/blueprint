@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell, Search } from "lucide-react";
+import { UserMenu } from "@/components/user-menu";
 
 export function Header() {
   return (
@@ -44,6 +45,9 @@ export function Header() {
             <option value="es">ES</option>
             <option value="pt">PT</option>
           </select>
+
+          {/* User Menu */}
+          <UserMenu />
         </div>
       </div>
     </header>

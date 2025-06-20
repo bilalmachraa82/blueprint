@@ -4,38 +4,45 @@ import { prisma } from '@/lib/db/prisma';
 import { ensureUserOrganization } from '@/lib/auth/organization';
 
 export async function GET(request: NextRequest) {
-  const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
-  if (!user) {
-    return new NextResponse('Unauthorized', { status: 401 });
-  }
-
   try {
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const organizationId = await ensureUserOrganization(user.id);
 
     const projects = await prisma.project.findMany({
       where: { organizationId },
+      orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(projects);
   } catch (error) {
     console.error('Error fetching projects:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch projects' },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
-  const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
-  if (!user) {
-    return new NextResponse('Unauthorized', { status: 401 });
-  }
-
   try {
+    const user = await stackServerApp.getUser({ tokenStore: request, or: 'anonymous-if-exists' });
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const organizationId = await ensureUserOrganization(user.id);
 
     const body = await request.json();
     const { name, description, startDate, endDate } = body;
 
     if (!name) {
-      return new NextResponse('Project name is required', { status: 400 });
+      return NextResponse.json(
+        { error: 'Project name is required' },
+        { status: 400 }
+      );
     }
 
     const newProject = await prisma.project.create({
@@ -52,6 +59,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
     console.error('Error creating project:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to create project' },
+      { status: 500 }
+    );
   }
 }

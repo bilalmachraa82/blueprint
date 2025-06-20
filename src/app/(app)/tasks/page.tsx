@@ -70,23 +70,41 @@ export default function TasksPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const fetchTasks = async () => {
-    const response = await fetch('/api/tasks');
-    if (response.ok) {
-      setTasks(await response.json());
+    try {
+      const response = await fetch('/api/tasks');
+      if (response.ok) {
+        setTasks(await response.json());
+      } else {
+        console.error('Failed to fetch tasks:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
     }
   };
 
   const fetchProjects = async () => {
-    const response = await fetch('/api/projects');
-    if (response.ok) {
-      setProjects(await response.json());
+    try {
+      const response = await fetch('/api/projects');
+      if (response.ok) {
+        setProjects(await response.json());
+      } else {
+        console.error('Failed to fetch projects:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
   };
 
   const fetchWorkOrders = async () => {
-    const response = await fetch('/api/work-orders');
-    if (response.ok) {
-      setWorkOrders(await response.json());
+    try {
+      const response = await fetch('/api/work-orders');
+      if (response.ok) {
+        setWorkOrders(await response.json());
+      } else {
+        console.error('Failed to fetch work orders:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching work orders:', error);
     }
   };
 

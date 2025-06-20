@@ -85,14 +85,22 @@ export function NewTaskDialog({ onTaskCreated }: NewTaskDialogProps) {
       return;
     }
 
-    const response = await fetch('/api/tasks', {
-      credentials: 'include',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, description, projectId, workOrderId: workOrderId || null }),
-    });
+    try {
+      const response = await fetch('/api/tasks', {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, projectId, workOrderId: workOrderId || null }),
+      });
 
-    if (response.ok) {
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create task');
+      }
+
+      const newTask = await response.json();
+      console.log('Task created:', newTask);
+
       // Reset form and close dialog
       setTitle('');
       setDescription('');
@@ -100,6 +108,9 @@ export function NewTaskDialog({ onTaskCreated }: NewTaskDialogProps) {
       setWorkOrderId('');
       onTaskCreated();
       setOpen(false);
+    } catch (error) {
+      console.error('Error creating task:', error);
+      alert(`Failed to create task: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 

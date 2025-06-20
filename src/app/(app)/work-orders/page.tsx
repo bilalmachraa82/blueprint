@@ -14,8 +14,11 @@ import {
   Settings2,
   Clock,
   AlertCircle,
+  Edit,
+  MoreVertical,
 } from "lucide-react";
 import { NewWorkOrderDialog } from '@/components/dialogs/NewWorkOrderDialog';
+import { EditWorkOrderDialog } from '@/components/dialogs/EditWorkOrderDialog';
 
 // Type definitions for our data
 interface Project {
@@ -58,17 +61,40 @@ export default function WorkOrdersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedOrders, setExpandedOrders] = useState<string[]>([]);
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [editingWorkOrder, setEditingWorkOrder] = useState<WorkOrder | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const fetchWorkOrders = async () => {
-    const response = await fetch('/api/work-orders');
-    if (response.ok) {
-      const data = await response.json();
-      setWorkOrders(data);
+    try {
+      const response = await fetch('/api/work-orders');
+      if (response.ok) {
+        const data = await response.json();
+        setWorkOrders(data);
+      } else {
+        console.error('Failed to fetch work orders:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching work orders:', error);
+    }
+  };
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch('/api/projects');
+      if (response.ok) {
+        setProjects(await response.json());
+      } else {
+        console.error('Failed to fetch projects:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
   };
 
   useEffect(() => {
     fetchWorkOrders();
+    fetchProjects();
   }, []);
 
   const toggleExpanded = (orderId: string) => {
@@ -152,14 +178,27 @@ export default function WorkOrdersPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      {order.dueDate ? new Date(order.dueDate).toLocaleDateString() : 'N/A'}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-4 w-4" />
+                        {order.dueDate ? new Date(order.dueDate).toLocaleDateString() : 'N/A'}
+                      </div>
+                      <span className="text-primary font-medium">
+                        {order.project.name}
+                      </span>
                     </div>
-                    <span className="text-primary font-medium">
-                      {order.project.name}
-                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingWorkOrder(order);
+                        setIsEditDialogOpen(true);
+                      }}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
@@ -209,6 +248,21 @@ export default function WorkOrdersPage() {
           );
         })}
       </div>
+
+      {/* Edit Work Order Dialog */}
+      {editingWorkOrder && (
+        <EditWorkOrderDialog
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+          workOrder={editingWorkOrder}
+          projects={projects}
+          onWorkOrderUpdated={() => {
+            fetchWorkOrders();
+            setIsEditDialogOpen(false);
+            setEditingWorkOrder(null);
+          }}
+        />
+      )}
     </div>
   );
 }

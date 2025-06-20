@@ -27,20 +27,31 @@ export function NewProjectDialog({ onProjectCreated }: NewProjectDialogProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const response = await fetch('/api/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, description }),
-      credentials: 'include',
-    });
+    try {
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, description }),
+        credentials: 'include',
+      });
 
-    if (response.ok) {
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create project');
+      }
+
+      const newProject = await response.json();
+      console.log('Project created:', newProject);
+      
       setName('');
       setDescription('');
       onProjectCreated();
       setOpen(false);
+    } catch (error) {
+      console.error('Error creating project:', error);
+      alert(`Failed to create project: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 

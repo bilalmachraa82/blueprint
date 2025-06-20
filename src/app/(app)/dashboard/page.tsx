@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useUser } from "@stackframe/stack";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -8,7 +9,6 @@ import {
   FileText,
   FolderOpen,
   TrendingUp,
-  Users,
   Clock,
   AlertCircle,
   CheckCircle2,
@@ -51,6 +51,7 @@ interface Task {
 }
 
 export default function DashboardPage() {
+  const user = useUser();
   const [projects, setProjects] = useState<Project[]>([]);
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -136,7 +137,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome back! Here's an overview of your workspace.
+          Welcome back{user?.displayName ? `, ${user.displayName}` : ''}! Here&apos;s an overview of your workspace.
         </p>
       </div>
 

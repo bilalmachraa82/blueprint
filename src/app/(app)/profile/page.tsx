@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function ProfilePage() {
-  const { user } = useUser();
+  const user = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: user?.displayName || user?.primaryEmail || "User",

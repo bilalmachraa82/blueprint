@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { NewProjectDialog } from '@/components/dialogs/NewProjectDialog';
+import { EditProjectDialog } from '@/components/dialogs/EditProjectDialog';
 import {
   Plus,
   Search,
@@ -13,6 +14,7 @@ import {
   Calendar,
   Users,
   Image as ImageIcon,
+  Edit,
 } from "lucide-react";
 
 const mockProjects = [
@@ -91,11 +93,35 @@ export default function ProjectsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [projects, setProjects] = useState<Project[]>([]); // Typed the projects state
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const fetchProjects = async () => {
-    const response = await fetch('/api/projects');
-    const data = await response.json();
-    setProjects(data);
+    try {
+      const response = await fetch('/api/projects');
+      if (!response.ok) {
+        console.error('Failed to fetch projects:', response.status);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        return;
+      }
+      
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Response is not JSON:', contentType);
+        const text = await response.text();
+        console.error('Response text:', text);
+        return;
+      }
+      
+      const data = await response.json();
+      setProjects(data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      if (error instanceof SyntaxError) {
+        console.error('JSON parse error - invalid response format');
+      }
+    }
   };
 
   useEffect(() => {
@@ -156,8 +182,16 @@ export default function ProjectsPage() {
             <CardHeader>
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg">{project.name}</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <MoreVertical className="h-4 w-4" />
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8"
+                  onClick={() => {
+                    setEditingProject(project);
+                    setIsEditDialogOpen(true);
+                  }}
+                >
+                  <Edit className="h-4 w-4" />
                 </Button>
               </div>
             </CardHeader>
@@ -203,6 +237,20 @@ export default function ProjectsPage() {
           </Card>
         ))}
       </div>
+
+      {/* Edit Project Dialog */}
+      {editingProject && (
+        <EditProjectDialog
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+          project={editingProject}
+          onProjectUpdated={() => {
+            fetchProjects();
+            setIsEditDialogOpen(false);
+            setEditingProject(null);
+          }}
+        />
+      )}
     </div>
   );
 }
