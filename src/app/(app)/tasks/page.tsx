@@ -13,8 +13,11 @@ import {
   CheckSquare,
   Clock,
   AlertCircle,
+  Edit,
+  MoreVertical,
 } from "lucide-react";
 import { NewTaskDialog } from '@/components/dialogs/NewTaskDialog';
+import { EditTaskDialog } from '@/components/dialogs/EditTaskDialog';
 
 // Type definitions
 interface Project {
@@ -56,11 +59,15 @@ const statusColors = {
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     status: "all",
     priority: "all",
   });
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const fetchTasks = async () => {
     const response = await fetch('/api/tasks');
@@ -69,8 +76,24 @@ export default function TasksPage() {
     }
   };
 
+  const fetchProjects = async () => {
+    const response = await fetch('/api/projects');
+    if (response.ok) {
+      setProjects(await response.json());
+    }
+  };
+
+  const fetchWorkOrders = async () => {
+    const response = await fetch('/api/work-orders');
+    if (response.ok) {
+      setWorkOrders(await response.json());
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
+    fetchProjects();
+    fetchWorkOrders();
   }, []);
 
   const filteredTasks = tasks.filter((task) => {
@@ -162,9 +185,21 @@ export default function TasksPage() {
                     {task.description}
                   </p>
                 </div>
-                <Button variant="ghost" size="sm">
-                  <CheckSquare className="h-4 w-4" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => {
+                      setEditingTask(task);
+                      setIsEditDialogOpen(true);
+                    }}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </CardHeader>
             <CardContent>
@@ -194,6 +229,22 @@ export default function TasksPage() {
           </Card>
         ))}
       </div>
+
+      {/* Edit Task Dialog */}
+      {editingTask && (
+        <EditTaskDialog
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+          task={editingTask}
+          projects={projects}
+          workOrders={workOrders}
+          onTaskUpdated={() => {
+            fetchTasks();
+            setIsEditDialogOpen(false);
+            setEditingTask(null);
+          }}
+        />
+      )}
     </div>
   );
 }
