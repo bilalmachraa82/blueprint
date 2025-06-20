@@ -1,0 +1,101 @@
+
+> blueprint-pro@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.4 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 11.1s
+ ○ Compiling /dashboard ...
+Error: Cannot apply unknown utility class `border-border`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+    [2m[at onInvalidCandidate (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:18:1312)][0m
+    [2m[at ge (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:13:29803)][0m
+    [2m[at /mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:18:373][0m
+    [2m[at I (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:3:1656)][0m
+    [2m[at je (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:18:172)][0m
+    [2m[at bi (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:35:780)][0m
+    [2m[at process.processTicksAndRejections (node:internal/process/task_queues:95:5)][0m
+    [2m[at async yi (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/tailwindcss/dist/lib.js:35:1123)][0m
+    [2m[at async _r (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@tailwindcss/node/dist/index.js:10:3384)][0m
+    [2m[at async p (/mnt/c/Users/Bilal/Documents/aiparati/Nuno/blueprint-pro-mcp/blueprint-pro/node_modules/@tailwindcss/postcss/dist/index.js:10:4019)][0m
+ ✓ Compiled /dashboard in 7.9s
+ GET /dashboard 200 in 9206ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1381ms
+ GET / 307 in 1830ms
+ GET /dashboard 200 in 813ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1276ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 2199ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 814ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1087ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 734ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 62ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 508ms
+ ○ Compiling /projects ...
+ GET /projects 200 in 2993ms
+ GET /work-orders 200 in 3620ms
+ GET /tasks 200 in 3694ms
+ GET /operations 200 in 3986ms
+ GET /profile 404 in 3234ms
+ GET /profile 404 in 589ms
+ GET /quality-control 200 in 5171ms
+ ✓ Compiled /projects in 8.6s
+ GET /settings 200 in 3670ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 920ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 592ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 639ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 648ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 808ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 680ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 170ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 643ms
+ GET /profile 404 in 467ms
+ GET /profile 404 in 823ms
+ GET /quality-control 200 in 825ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 712ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 806ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 565ms
+ GET /dashboard 200 in 495ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 988ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1022ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 915ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1022ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 1057ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 811ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 872ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 814ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 892ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 776ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 771ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 818ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 772ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 938ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 774ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 829ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 725ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 12ms
+ GET /dashboard 200 in 714ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 820ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 898ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 829ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 768ms
+ GET /dashboard 200 in 551ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 964ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 444ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 387ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 981ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 889ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 720ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 784ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 791ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 743ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 802ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 850ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 695ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 522ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 620ms
+[?25h

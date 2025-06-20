@@ -1,0 +1,68 @@
+{
+  "app": {
+    "name": "Blueprint Pro",
+    "tagline": "Sistema Profissional de Gestão de Ordens de Trabalho"
+  },
+  "nav": {
+    "dashboard": "Painel",
+    "projects": "Projetos",
+    "workOrders": "Ordens de Trabalho",
+    "tasks": "Tarefas",
+    "operations": "Operações",
+    "qualityControl": "Controle de Qualidade",
+    "settings": "Configurações",
+    "profile": "Perfil",
+    "logout": "Sair"
+  },
+  "dashboard": {
+    "title": "Painel de Controle",
+    "welcome": "Bem-vindo de volta",
+    "overview": "Visão Geral",
+    "activeProjects": "Projetos Ativos",
+    "pendingTasks": "Tarefas Pendentes",
+    "inProgress": "Em Progresso",
+    "completed": "Concluído"
+  },
+  "projects": {
+    "title": "Projetos",
+    "new": "Novo Projeto",
+    "search": "Pesquisar projetos...",
+    "status": {
+      "active": "Ativo",
+      "completed": "Concluído",
+      "onHold": "Em Espera",
+      "cancelled": "Cancelado"
+    }
+  },
+  "workOrders": {
+    "title": "Ordens de Trabalho",
+    "new": "Nova Ordem de Trabalho",
+    "type": {
+      "assembly": "Montagem",
+      "part": "Peça",
+      "service": "Serviço"
+    },
+    "priority": {
+      "low": "Baixa",
+      "medium": "Média",
+      "high": "Alta",
+      "urgent": "Urgente"
+    }
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "update": "Atualizar",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "import": "Importar",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "warning": "Aviso"
+  }
+}
